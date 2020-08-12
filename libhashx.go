@@ -4,6 +4,7 @@ import(
 	"encoding/hex"
 	"crypto/sha256"
 	"math/rand"
+	"time"
 )
 
 func Hash(input string) string {
@@ -18,6 +19,7 @@ type LibHashX struct {
 }
 
 func (this LibHashX) GenPriv() []string {
+	rand.Seed(time.Now().UnixNano())
 	c := 0
 	key := ""
 	for c < this.Length {
