@@ -31,17 +31,17 @@ func (this LibHashX) GenPriv() []string {
 }
 
 func (this LibHashX) GenPub(priv string) string {
-	pub := priv + "PublicKeyStandardForHashXByXyte"
+	pub := priv + "PublicKeyStandardForHashXByOpenQira"
 	return Hash(pub)
 }
 
 func (this LibHashX) SignData(data string,priv string) string {
-	signature := data + priv
+	signature := data + this.GenPub(priv)
 	return Hash(signature)
 }
 
-func (this LibHashX) VerifySign(sign string,data string,priv string) bool {
-	signature := data + priv
+func (this LibHashX) VerifySign(sign string,data string,pub string) bool {
+	signature := data + pub
 	if Hash(signature) == sign {
 		return true
 	}
@@ -49,7 +49,7 @@ func (this LibHashX) VerifySign(sign string,data string,priv string) bool {
 }
 
 func (this LibHashX) VerifyPrivate(priv string,pub string) bool {
-	key := Hash(priv + "PublicKeyStandardForHashXByXyte")
+	key := Hash(priv + "PublicKeyStandardForHashXByOpenQira")
 	if key == pub {
 		return true
 	}
